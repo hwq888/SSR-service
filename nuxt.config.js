@@ -2,6 +2,13 @@
 export default {
   mode: 'universal',
   /*
+ ** 端口和ip
+ */
+  server: {
+    port: 80, // default: 3000
+    host: '0.0.0.0', // default: localhost
+  },
+  /*
   ** Headers of the page
   */
   head: {
@@ -18,11 +25,17 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: {
+    color: '#4FC08D',
+    failedColor: '#bf5050',
+    duration: 1500
+  },
   /*
   ** Global CSS
   */
   css: [
+    'normalize.css',
+    '~assets/main.css'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -38,7 +51,37 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
+  generate: {
+    routes: [
+      '/users/1',
+      '/users/2'
+    ]
+  },
+  // // 动态路由 异步获取
+  // generate: {
+  //   routes: function () {
+  //     return axios.get('https://my-api/users')
+  //       .then((res) => {
+  //         return res.data.map((user) => {
+  //           return '/users/' + user.id
+  //         })
+  //       })
+  //   }
+  // },
+  axios: {
+    proxy: true
+  },
+  proxy: {
+    '/v2': {
+      target: 'http://api.douban.com',
+      pathRewrite: {
+        '^/v2': '/v2'
+      }
+    }
+  },
   /*
   ** Build configuration
   */
