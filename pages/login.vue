@@ -52,6 +52,7 @@ export default {
       }
       console.log('login sumbit')
       console.log(params)
+      Cookies.set('token', params.name, { expires: 1 })
       Cookies.set('userInfo', params, { expires: 1 })
       this.$store.commit('SET_USER', params)
       this.$router.push('/users/1?userType=3')

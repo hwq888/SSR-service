@@ -7,7 +7,7 @@
 <script>
   export default {
     layout: 'navbar-layouts',
-    middleware: 'authenticated'
+    middleware: 'userAuth'
   }
 </script>
 

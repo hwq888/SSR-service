@@ -21,6 +21,7 @@
     },
     methods: {
       loginOut () {
+        Cookies.remove('token')
         Cookies.remove('userInfo')
         this.$store.commit('SET_USER', '')
         this.$router.replace('/')
