@@ -14,7 +14,7 @@
   export default {
     computed: mapGetters(['loggedUser']),
     created () {
-      // console.log('created1')
+      console.log('created1')
       if (Cookies.get('userInfo')) {
         this.$store.commit('SET_USER', Cookies.getJSON('userInfo'))
       }
