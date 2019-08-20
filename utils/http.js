@@ -1,12 +1,22 @@
 import axios from 'axios'
+import utils from '~/utils/utils'
 
 // 设置请求头token
-const ajaxToken = function () {
-  // const lang = localStorage.lang || 'zh'
-  const token = utils.getCookie('UserLoginToken')
-  // axios.defaults.headers.common['lang'] = lang
+const ajaxToken = function (req) {
+  let isClient = process.client; // 客户端
+  let isServer = process.server; // 服务端
+  let token = ''
+  if (isClient) {
+    token = utils.getcookiesInClient('token')
+  }
+  if (isServer) {
+    let cookies = utils.getcookiesInServer(req)
+    token = cookies.token ? cookies.token : ''
+    console.log('http token:'+ token)
+  }
+
   if (token) {
-    axios.defaults.headers.common['Token'] = token
+    axios.defaults.headers.common['token'] = token
   }
 }
 
@@ -51,16 +61,16 @@ axios.interceptors.response.use(data => { // 响应成功关闭loading
 })
 let baseUrl = ''
 export default {
-  get: function (url, params) {
-    ajaxToken()
-    return axios.get(baseUrl + url, {params: params}).then(res => res.data)
+  get: function (url, params, req) {
+    ajaxToken(req)
+    return axios.get(baseUrl + url, {params: params}).then(res => res)
   },
-  post: function (url, params) {
-    ajaxToken()
-    return axios.post(baseUrl + url, params).then(res => res.data)
+  post: function (url, params, req) {
+    ajaxToken(req)
+    return axios.post(baseUrl + url, params).then(res => res)
   },
-  postForm: function (url, params) {
-    ajaxToken()
+  postForm: function (url, params, req) {
+    ajaxToken(req)
     return axios({
       url: baseUrl + url,
       method: 'post',
@@ -75,14 +85,14 @@ export default {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
-    }).then(res => res.data)
+    }).then(res => res)
   },
-  put: function (url, params) {
-    ajaxToken()
-    return axios.put(baseUrl + url, params).then(res => res.data)
+  put: function (url, params, req) {
+    ajaxToken(req)
+    return axios.put(baseUrl + url, params).then(res => res)
   },
-  putForm: function (url, params) {
-    ajaxToken()
+  putForm: function (url, params, req) {
+    ajaxToken(req)
     return axios({
       url: baseUrl + url,
       method: 'put',
@@ -97,14 +107,14 @@ export default {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
-    }).then(res => res.data)
+    }).then(res => res)
   },
-  delete: function (url, params) {
-    ajaxToken()
-    return axios.delete(baseUrl + url, params).then(res => res.data)
+  delete: function (url, params, req) {
+    ajaxToken(req)
+    return axios.delete(baseUrl + url, params).then(res => res)
   },
-  deleteForm: function (url, params) {
-    ajaxToken()
+  deleteForm: function (url, params, req) {
+    ajaxToken(req)
     return axios({
       url: url,
       method: 'delete',
@@ -119,6 +129,6 @@ export default {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
-    }).then(res => res.data)
+    }).then(res => res)
   }
 }

@@ -10,6 +10,7 @@ export default function ({route, req, res, redirect}) {
     let cookies = utils.getcookiesInServer(req)
     path = req.originalUrl;
     token = cookies.token ? cookies.token : ''
+    console.log('userAuth token:'+ token)
   }
   //在客户端判读是否需要登陆
   if (isClient) {

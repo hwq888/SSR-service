@@ -6,8 +6,9 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  // import axios from 'axios'
   import { aboutHead } from '~/utils/head.js'
+  import http from '~/utils/http.js'
   export default {
     layout: 'navbar-layouts',
     head () {
@@ -18,18 +19,15 @@
         listData: ''
       }
     },
-    async asyncData ({ store, query }) {
+    async asyncData ({ store, query, req }) {
       // We can use async/await ES6 feature
-      console.log('1111111111111')
-      console.log(process.client)
-      console.log(store.state.user.name)
-      const name = store.state.user.name
-      if (name) {
-        axios.defaults.headers.common['name'] = name
-      }
-      // console.log(`window:${window}`)
-      const { data } = await axios.get(`/v2/movie/in_theaters?apikey=0df993c66c0c636e29ecbb5344252a4a&start=${query.start}&count=${query.count}`)
+      let { data } = await  http.get(`/v2/movie/in_theaters`, {apikey:'0df993c66c0c636e29ecbb5344252a4a', start:query.start, count:query.count}, req)
       return { listData: data.subjects }
+
+       // http.get(`/v2/movie/in_theaters`, {apikey:'0df993c66c0c636e29ecbb5344252a4a', start:query.start, count:query.count}, req).then((res) => {
+       //   console.log('22222222222')
+       //   console.log(res)
+       // })
     },
     created () {
       console.log('created2')
