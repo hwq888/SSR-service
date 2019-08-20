@@ -1,6 +1,6 @@
 # nuxtJS 服务端渲染demo
 
-![Image text](https://github.com/foolish1016/MoreView/blob/master/MoreBtn/Preview/7A33E4FC-D15F-4FA2-99D4-371FA7C8DEAA.png)
+![Image text](https://github.com/hwq888/SSR-service/img/demo.gif)
 
 涉及到的功能点：
 - 路由：路由根据pages目录自动生成对应路径的路由，这里有初步的模拟了一下嵌套路由和动态路由
