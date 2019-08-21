@@ -6,6 +6,7 @@
 - 路由：路由根据pages目录自动生成对应路径的路由，这里有初步的模拟了一下嵌套路由和动态路由
 - 配置项： 新增server，head，loading，全局css，axios，proxy 等配置，具体说明可以查看 nuxt.config.js
 - 布局：default.vue 默认布局   navbar-layouts.vue 自定义布局   error.vue 自定义404错误和其他错误信息
+- 中间件： userAuth.js 根据token 判断用户是否登录
 - 其他：新增sass预处理，新增渲染的head设置，模拟登录，登录退出等功能
 
 ## 参考文档
