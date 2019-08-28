@@ -1,6 +1,8 @@
 <template>
   <div>
     <h1>首页</h1>
+    <img src="~/assets/img/1.png">
+    <img src="~/assets/img/2.png">
   </div>
 </template>
 
